@@ -25,6 +25,7 @@ export default {
         '900': '#065774',
         '950': '#04374d',
     },
+      'lightPurple' : '#CDC1FF',
     
      }
       
