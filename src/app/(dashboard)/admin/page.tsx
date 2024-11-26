@@ -5,7 +5,7 @@ import Table from "@/components/Table";
 import TableSearch from "@/components/TableSearch";
 import UserCard from "@/components/UserCard";
 import Image from "next/image";
-import { sentimentData } from "@/data/data";
+import { sentimentData } from "@/lib/data";
 
 type Sentiment = {
   id: number;

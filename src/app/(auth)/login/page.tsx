@@ -4,7 +4,7 @@ import { useState } from "react";
 const LoginPage = () => {
   const [email, setEmail] = useState("");
   const [password,setPassword] = useState("");
-  const [error,setError] = useState('Username anda Salah');
+  const [error,setError] = useState('');
 
   return (
     <div className="w-full h-screen flex items-center justify-center bg-custom-gradient">

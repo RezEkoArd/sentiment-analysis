@@ -1,3 +1,21 @@
+export const SVMdata = [
+  {
+    klasifikasi: "Naivebayes",
+    aktualPositif: 73,
+    aktualNegatif: 27,
+  },
+  {
+    klasifikasi: "Naivebayes",
+    aktualPositif: 54,
+    aktualNegatif: 24,
+  },
+  {
+    klasifikasi: "Naivebayes",
+    aktualPositif: 61,
+    aktualNegatif: 33,
+  },
+];
+
 export const sentimentData = [
   {
     waktu: "Thu Dec 09 03:37:21 +0000 2021",

@@ -1,5 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
+
 
 const menuItems = [
   {
@@ -8,7 +10,7 @@ const menuItems = [
       {
         icon: "/home.png",
         label: "Home",
-        href: "/",
+        href: "/admin",
       },
     ],
   },
@@ -18,12 +20,12 @@ const menuItems = [
       {
         icon: "/machine.png",
         label: "SVM ",
-        href: "/",
+        href: "/svm",
       },
       {
         icon: "/naive-bayes.png",
         label: "Naive Bayes",
-        href: "/",
+        href: "/naive-bayes",
       },
     ],
   },
@@ -50,6 +52,8 @@ const menuItems = [
 ];
 
 const Menu = () => {
+  const pathname = usePathname();
+
   return (
     <div className="mt-4 ml-4 text-sm">
       {menuItems.map((i) => (
@@ -59,11 +63,17 @@ const Menu = () => {
           </span>
 
           {i.items.map((item) => {
+            // Validate url
+            const isActive = pathname === item.href;
+
             return (
               <Link
                 href={item.href}
                 key={item.label}
-                className="flex items-center lg:justify-start gap-4 text-gray-500 py-2 md:px-2 rounded-md hover:bg-slate-200"
+                className={`flex items-center lg:justify-start gap-4 text-gray-500 py-2 md:px-2 rounded-md 
+                  ${
+                    isActive ? "bg-lightPurple " : "hover:bg-slate-200"
+                  }`}
               >
                 <Image src={item.icon} alt="" width={20} height={20} />
                 <span className="hidden lg:block">{item.label}</span>
