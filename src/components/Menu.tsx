@@ -12,6 +12,31 @@ const menuItems = [
         label: "Home",
         href: "/admin",
       },
+      {
+        icon: "/data-latih.png",
+        label: "Data Latih",
+        href: "/data-latih",
+      },
+      {
+        icon: "/data-uji.png",
+        label: "Data Uji",
+        href: "/data-uji",
+      },
+    ],
+  },
+  {
+    title: "Klasifikasi",
+    items: [
+      {
+        icon: "/klasifikasi-svm.png",
+        label: "Klasifikasi SVM ",
+        href: "/klasifikasi-svm",
+      },
+      {
+        icon: "/klasifikasi-naivebayes.png",
+        label: "Klasifikasi NaiveBayes",
+        href: "/klasifikasi-naive-bayes",
+      },
     ],
   },
   {

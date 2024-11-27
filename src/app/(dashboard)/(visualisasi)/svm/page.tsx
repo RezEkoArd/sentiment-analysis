@@ -34,13 +34,6 @@ const columns = [
   },
 ];
 
-const pieData = [
-  { name: "Laki-laki", value: 400 },
-  { name: "Perempuan", value: 300 },
-  { name: "Lainnya", value: 200 },
-  { name: "Tidak Diketahui", value: 100 },
-];
-
 const Page = () => {
   const renderRow = (item: Matrix, index: any) => (
     <tr
@@ -70,17 +63,17 @@ const Page = () => {
           <div className=" flex justify-between items-center">
             <h1 className="text-lg font-semibold">
               {" "}
-              Visualisasi Sentiment NaiveBayes
+              Visualisasi Sentiment SVM
             </h1>
           </div>
           <div className="flex gap-8 flex-col lg:flex-row">
             {/* Chart Visual Sentiment  */}
             <div className="w-full lg:w-1/3 h-[450px]">
-            <ChartPie />
+            <ChartPie title={"SVM"}/>
             </div>
             {/*Chart Akurasi Sentiment  */}
             <div className="w-full lg:w-1/3 h-[450px]">
-              <ChartAkurasi />
+              <ChartAkurasi title={"SVM"} />
             </div>
           </div>
         </div>

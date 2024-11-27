@@ -8,55 +8,34 @@ import {
 
 const data = [
   {
-    name: "18-24",
-    uv: 31.47,
-    pv: 2400,
+    name: "Total",
+    count: 100,
+    fill: "white",
+  },
+  {
+    name: "Girls",
+    count: 44,
     fill: "#8884d8",
   },
   {
-    name: "25-29",
-    uv: 26.69,
-    pv: 4567,
+    name: "Boys",
+    count: 56,
     fill: "#83a6ed",
-  },
-  {
-    name: "30-34",
-    uv: 15.69,
-    pv: 1398,
-    fill: "#8dd1e1",
-  },
-  {
-    name: "35-39",
-    uv: 8.22,
-    pv: 9800,
-    fill: "#82ca9d",
-  },
-  {
-    name: "40-49",
-    uv: 8.63,
-    pv: 3908,
-    fill: "#a4de6c",
-  },
-  {
-    name: "50+",
-    uv: 2.63,
-    pv: 4800,
-    fill: "#d0ed57",
-  },
-  {
-    name: "unknow",
-    uv: 6.67,
-    pv: 4800,
-    fill: "#ffc658",
   },
 ];
 
-const ChartPie = () => {
+
+interface ChartPieProps {
+  title: String;
+}
+const ChartPie = ({title} : ChartPieProps) => {
   return (
     <div className="bg-white rounded-xl w-full h-full p-4">
       {/* TITLE */}
       <div className="flex justify-between items-center">
-        <h1>Students</h1>
+        <h1 className="font-light text-slate-700 text-md">
+          Visualisasi Sentimen {title}
+        </h1>
       </div>
       {/* Chart */}
       <div className="w-full h-[75%]">
@@ -66,17 +45,33 @@ const ChartPie = () => {
             cy="50%"
             innerRadius="10%"
             outerRadius="80%"
-            barSize={10}
+            barSize={34}
             data={data}
           >
             <RadialBar
-              label={{ position: "insideStart", fill: "#fff" }}
+              // label={{ position: "insideStart", fill: "#fff" }}
               background
-              dataKey="uv"
+              dataKey="count"
             />
-            <Legend iconSize={10} layout="vertical" verticalAlign="middle" />
           </RadialBarChart>
         </ResponsiveContainer>
+      </div>
+      {/* Bottom */}
+      <div className="flex justify-center gap-16">
+        <div className="flex flex-col gap-1">
+          <div className="flex items-center justify-center gap-2">
+            <div className="w-5 h-5 bg-[#8884d8] rounded-full" />
+            <h2 className="text-xs text-gray-500"> (45%)</h2>
+          </div>
+          <h1 className="font-bold">Positif</h1>
+        </div>
+        <div className="flex flex-col gap-1">
+          <div className="flex items-center justify-center gap-2">
+            <div className="w-5 h-5 bg-[#83a6ed] rounded-full" />
+            <h2 className="text-xs text-gray-500"> (55%)</h2>
+          </div>
+          <h1 className="font-bold">Negatif</h1>
+        </div>
       </div>
     </div>
   );

@@ -1,16 +1,34 @@
 export const SVMdata = [
   {
-    klasifikasi: "Naivebayes",
+    klasifikasi: "SVM",
     aktualPositif: 73,
     aktualNegatif: 27,
   },
   {
-    klasifikasi: "Naivebayes",
+    klasifikasi: "SVM",
     aktualPositif: 54,
     aktualNegatif: 24,
   },
   {
-    klasifikasi: "Naivebayes",
+    klasifikasi: "SVM",
+    aktualPositif: 61,
+    aktualNegatif: 33,
+  },
+];
+
+export const NaiveBayesData = [
+  {
+    klasifikasi: "NaiveBayes",
+    aktualPositif: 73,
+    aktualNegatif: 27,
+  },
+  {
+    klasifikasi: "NaiveBayes",
+    aktualPositif: 54,
+    aktualNegatif: 24,
+  },
+  {
+    klasifikasi: "NaiveBayes",
     aktualPositif: 61,
     aktualNegatif: 33,
   },

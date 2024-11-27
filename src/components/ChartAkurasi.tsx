@@ -23,14 +23,16 @@ interface CustomizedLabelProp extends LabelProps {
   index: number;
 }
 
+interface ChartAkurasi {
+  title: String;
+}
+
 const data: DataEntry[] = [
   { name: "Group A", value: 400 },
   { name: "Group B", value: 300 },
-  { name: "Group C", value: 300 },
-  { name: "Group D", value: 200 },
 ];
 
-const COLORS = ["#0088FE", "#00C49F", "#FFBB28", "#FF8042"];
+const COLORS = ["#0088FE", "#00C49F"];
 
 const RADIAN = Math.PI / 180;
 const renderCustomizedLabel = ({
@@ -58,12 +60,12 @@ const renderCustomizedLabel = ({
     </text>
   );
 };
-const ChartAkurasi = () => {
+const ChartAkurasi = ({title} : ChartAkurasi) => {
   return (
     <div className="bg-white rounded-xl w-full h-full p-4">
       {/* Title */}
       <div className="flex justify-between items-center">
-        <h1>Akurasi Sentiment SVM</h1>
+        <h1>Akurasi Sentiment {title}</h1>
       </div>
       {/* Chart */}
       <div className="w-full h-[75%]">
@@ -88,6 +90,24 @@ const ChartAkurasi = () => {
             </Pie>
           </PieChart>
         </ResponsiveContainer>
+      </div>
+      {/* Bottom */}
+      <div className="flex justify-center gap-16">
+        <div className="flex flex-col gap-1">
+          <div className="flex items-center justify-center gap-2">
+            <div className="w-5 h-5 bg-[#0088FE] rounded-full" />
+            <h2 className="text-xs text-gray-500"> (55%)</h2>
+          </div>
+          <h1 className="font-bold">Sesuai</h1>
+        </div>
+        <div className="flex flex-col gap-1">
+          <div className="flex items-center justify-center gap-2">
+            <div className="w-5 h-5 bg-[#00C49F] rounded-full" />
+            <h2 className="text-xs text-gray-500"> (43%)</h2>
+          </div>
+
+          <h1 className="font-bold">Tidak Sesuai</h1>
+        </div>
       </div>
     </div>
   );
