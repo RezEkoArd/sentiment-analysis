@@ -3,8 +3,6 @@ import { NaiveBayesData } from "@/lib/data";
 import { PieChart, Pie, Sector, Cell, ResponsiveContainer } from "recharts";
 import ChartPie from "@/components/ChartPie";
 import ChartAkurasi from "@/components/ChartAkurasi";
-import { title } from "process";
-
 
 type Matrix = {
   id: number;

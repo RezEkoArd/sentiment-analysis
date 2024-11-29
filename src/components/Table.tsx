@@ -11,7 +11,7 @@ const Table = ({
 }) => {
 
   return (
-    <table className="w-full mt-4">
+    <table className="w-full mt-4 table-fixed">
         <thead>
             <tr className="text-left text-gray-500 text-sm">
                 {columns.map((col) => (
