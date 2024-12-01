@@ -2,8 +2,19 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
+type MenuItem = {
+  icon: string;
+  label: string;
+  href: string;
+  setLogout?: boolean;
+};
 
-const menuItems = [
+type MenuGroup = {
+  title: string;
+  items: MenuItem[];
+};
+
+const menuItems: MenuGroup[] = [
   {
     title: "Menu",
     items: [
@@ -71,6 +82,7 @@ const menuItems = [
         icon: "/logout.png",
         label: "Logout",
         href: "/logout",
+        setLogout: true,
       },
     ],
   },
@@ -78,6 +90,10 @@ const menuItems = [
 
 const Menu = () => {
   const pathname = usePathname();
+  const handleLogout = () => {
+    localStorage.clear();
+    window.location.reload();
+  }
 
   return (
     <div className="mt-4 ml-4 text-sm">
@@ -91,14 +107,25 @@ const Menu = () => {
             // Validate url
             const isActive = pathname === item.href;
 
+            if (item.setLogout) {
+              return (
+                 <button
+                  key={item.label}
+                  onClick={handleLogout}
+                  className="flex items-center lg:justify-start gap-4 text-gray-500 py-2 md:px-2 rounded-md hover:bg-slate-200"
+                >
+                  <Image src={item.icon} alt="" width={20} height={20} />
+                  <span className="hidden lg:block">{item.label}</span>
+                </button>
+              );
+            }
+
             return (
               <Link
                 href={item.href}
                 key={item.label}
                 className={`flex items-center lg:justify-start gap-4 text-gray-500 py-2 md:px-2 rounded-md 
-                  ${
-                    isActive ? "bg-lightPurple " : "hover:bg-slate-200"
-                  }`}
+                  ${isActive ? "bg-lightPurple " : "hover:bg-slate-200"}`}
               >
                 <Image src={item.icon} alt="" width={20} height={20} />
                 <span className="hidden lg:block">{item.label}</span>
