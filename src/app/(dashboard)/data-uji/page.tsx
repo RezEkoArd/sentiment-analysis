@@ -1,7 +1,7 @@
 "use client";
 import Pagination from "@/components/Pagination";
 import Table from "@/components/Table";
-import TableEmpty from "@/components/TableEmpty";
+import TableEmpty from "@/components/AlertEmpty";
 import TableSearch from "@/components/TableSearch";
 import { DataLatih } from "@/lib/data";
 import Image from "next/image";

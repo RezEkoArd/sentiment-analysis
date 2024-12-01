@@ -1,7 +1,7 @@
 "use client"
 import FileUpload from "@/components/FileUpload"
 import Table from "@/components/Table"
-import TableEmpty from "@/components/TableEmpty"
+import TableEmpty from "@/components/AlertEmpty"
 
 const Page = () => {
   return (

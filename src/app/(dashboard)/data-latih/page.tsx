@@ -3,7 +3,7 @@ import BtnClear from "@/components/BtnClear";
 import FileUpload from "@/components/FileUpload";
 import Pagination from "@/components/Pagination";
 import Table from "@/components/Table";
-import TableEmpty from "@/components/TableEmpty";
+import TableEmpty from "@/components/AlertEmpty";
 import TableSearch from "@/components/TableSearch";
 import Image from "next/image";
 import { useEffect, useState } from "react";

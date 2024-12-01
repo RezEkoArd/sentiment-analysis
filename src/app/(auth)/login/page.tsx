@@ -1,10 +1,36 @@
-"use client";
-import { useState } from "react";
+'use client'
+
+import {redirect, useRouter} from 'next/navigation'; 
+import { useEffect, useState } from "react";
 
 const LoginPage = () => {
   const [email, setEmail] = useState("");
   const [password,setPassword] = useState("");
   const [error,setError] = useState('');
+  const router = useRouter();
+
+
+  useEffect(() => {
+    const middlewareLogin = () => {
+     const x =  localStorage.getItem('isLogin')
+        if(x) {
+          router.push('/admin')
+        } 
+        return;
+    }
+    middlewareLogin();
+  })
+
+  const handleLogin = () => {
+    if(email === "admin@gmail.com" && password === "password") {
+      localStorage.setItem('isLogin', 'true');
+      router.push('/admin');
+    } else {
+      setError('Username atau password salah!')
+      console.log(error)
+    }
+  }
+
 
   return (
     <div className="w-full h-screen flex items-center justify-center bg-custom-gradient">
@@ -12,10 +38,9 @@ const LoginPage = () => {
         <h1 className="font-semibold text-2xl w-full text-center pb-2 border-b-2 border-slate-200">Login Page</h1>
         {error && <div className="bg-red-100 text-red-700 p-2 mb-1 rounded">{error}</div>}
 
-        <form action="">
+        <div>
           <div className="mb-4 mt-1">
             <label
-              htmlFor=""
               className="blovk text-sm font-medium text-gray-700"
             >
               Email
@@ -49,12 +74,12 @@ const LoginPage = () => {
             />
           </div>
           <button
-            type="submit"
+          onClick={handleLogin}
             className="w-full bg-cyan-500 text-white p-2 rounded-md hover:bg-cyan-6s00 transition duration-200 mt-2"
           >
             Login
           </button>
-        </form>
+        </div>
       </div>
     </div>
   );
