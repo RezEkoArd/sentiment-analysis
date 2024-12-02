@@ -73,27 +73,6 @@ const Page = () => {
           <UserCard type={"Data Latih"} />
           <UserCard type={"Data Uji"} />
         </div>
-
-        <div className="bg-white p-4 rounded-md flex-1 m-4 mt-0">
-          {/* Top */}
-          <div className="flex items-center justify-between">
-            <h1 className="hidden md:block text-lg font-semibold">
-              {" "}
-              Clasifikasi SVM
-            </h1>
-            <TableSearch />
-            <div className="flex items-center gap-4 self-end">
-              <button className="w-8 h-8 flex items-center justify-center rounded-full bg-lightPurple">
-                <Image src="/sort.png" alt="" width={14} height={14} />
-              </button>
-            </div>
-          </div>
-
-          {/* List */}
-          <Table columns={columns} renderRow={renderRow} data={sentimentData} />
-          {/* Pagination */}
-          <Pagination />
-        </div>
       </div>
     </div>
   );

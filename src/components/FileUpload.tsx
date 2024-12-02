@@ -3,7 +3,6 @@ import { useState, useEffect } from "react";
 const FileUpload = () => {
   const [jsonData, setJsonData] = useState<Record<string, any> | null>(null);
   const [error, setError] = useState<string | null>(null);
-  const [fetching,setFetching] = useState(false)
 
   useEffect(() => {
     const savedData = localStorage.getItem("uploadedJson");
@@ -13,6 +12,16 @@ const FileUpload = () => {
     }
   }, []);
 
+  // Split data menjadi Data Uji dan Data Latih
+  const splitData = (data: any[], ratio: number) => {
+    const trainSize = Math.floor(data.length * ratio);
+    const trainData = data.slice(0, trainSize);
+    const testData = data.slice(trainSize);
+    return {trainData, testData};
+  }
+
+  // -------------------
+
   const handleFileUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     if (!file) return;
@@ -20,10 +29,10 @@ const FileUpload = () => {
     const reader = new FileReader();
     reader.onload = () => {
       try {
-        const result = JSON.parse(reader.result as string);
-        setJsonData(result);
-        localStorage.setItem("dataSentiment", JSON.stringify(result));
-        // setFileName(file ? file.name : "No file choosen"); //!
+        const result = JSON.parse(reader.result as string);;
+        const {trainData, testData} = splitData(result, 0.8);
+        localStorage.setItem("dataUji", JSON.stringify(testData));
+        localStorage.setItem("dataLatih", JSON.stringify(trainData));
         window.location.reload()
         setError(null);
       } catch (error) {
@@ -50,16 +59,6 @@ const FileUpload = () => {
         className="hidden"
         onChange={handleFileUpload}
       />
-
-
-      {/* <div className="flex items-center justify-center">
-        {jsonData && (
-          <div>
-            <h2>Data Preview:</h2>
-            {renderJsonData(jsonData)}
-          </div>
-        )}
-      </div> */}
     </div>
   );
 };

@@ -1,10 +1,9 @@
-"use client"
+"use client";
 import Pagination from "@/components/Pagination";
 import Table from "@/components/Table";
-import TableSearch from "@/components/TableSearch";
 import Image from "next/image";
-import { DataLatih } from "@/lib/data";
-import FileUpload from "@/components/FileUpload";
+import { useState } from "react";
+import { getDataFromLocalStorage, trainNaiveBayes } from "@/lib/NaiveBayes";
 
 type dataLatihProps = {
   Date: number;
@@ -43,6 +42,15 @@ const columns = [
 ];
 
 const Page = () => {
+  const [result, setResult] = useState<string>("");
+
+  const analyzeText = (text: string) => {
+    const data = getDataFromLocalStorage();
+    const naiveBayesModel = trainNaiveBayes(data);
+    const sentiment = naiveBayesModel.classify(text);
+    setResult(sentiment);
+  };
+
   const renderRow = (item: dataLatihProps, index: number) => (
     <tr
       key={index}
@@ -62,8 +70,10 @@ const Page = () => {
       <div className="bg-white p-4 rounded-md flex-1 m-4 mt-0">
         {/* top */}
         <div className="flex flex-row gap-4 items-cente justify-between">
-          <h1 className="hidden md:block text-lg font-semibold">Data Uji</h1>
-          <TableSearch />
+          <h1 className="hidden md:block text-lg font-semibold">
+            Klasifikasi Naive Bayes
+          </h1>
+          {/* <TableSearch /> */}
 
           <div className="flex items-center gap-4 ">
             <button className="w-8 h-8 flex items-center justify-center rounded-full bg-lightPurple">
@@ -73,8 +83,26 @@ const Page = () => {
         </div>
 
         {/* List */}
-       
-        <Table columns={columns} renderRow={renderRow} data={DataLatih} />
+
+        <div>
+          <textarea
+            id="reviewText"
+            placeholder="Masukkan teks ulasan di sini..."
+          />
+          <button
+            onClick={() => {
+              const text = (
+                document.getElementById("reviewText") as HTMLTextAreaElement
+              ).value;
+              analyzeText(text);
+            }}
+          >
+            Analisis Sentimen
+          </button>
+          {result && <p>Hasil Sentimen: {result}</p>}
+        </div>
+
+        {/* <Table columns={columns} renderRow={renderRow} data={DataLatih} /> */}
         {/* Pagination */}
         <Pagination />
       </div>

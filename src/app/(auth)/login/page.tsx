@@ -1,6 +1,7 @@
 'use client'
 
-import {redirect, useRouter} from 'next/navigation'; 
+import { ACCOUNT } from '@/lib/utils';
+import { useRouter} from 'next/navigation'; 
 import { useEffect, useState } from "react";
 
 const LoginPage = () => {
@@ -8,6 +9,8 @@ const LoginPage = () => {
   const [password,setPassword] = useState("");
   const [error,setError] = useState('');
   const router = useRouter();
+
+  const {USERNAME, PASSWORD} = ACCOUNT;
 
 
   useEffect(() => {
@@ -22,7 +25,7 @@ const LoginPage = () => {
   })
 
   const handleLogin = () => {
-    if(email === "admin@gmail.com" && password === "password") {
+    if(email === USERNAME && password === PASSWORD) {
       localStorage.setItem('isLogin', 'true');
       router.push('/admin');
     } else {
@@ -74,6 +77,7 @@ const LoginPage = () => {
             />
           </div>
           <button
+          type='submit'
           onClick={handleLogin}
             className="w-full bg-cyan-500 text-white p-2 rounded-md hover:bg-cyan-6s00 transition duration-200 mt-2"
           >

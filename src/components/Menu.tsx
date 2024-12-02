@@ -33,21 +33,23 @@ const menuItems: MenuGroup[] = [
         label: "Data Uji",
         href: "/data-uji",
       },
+      
     ],
   },
   {
     title: "Klasifikasi",
     items: [
       {
-        icon: "/klasifikasi-svm.png",
-        label: "Klasifikasi SVM ",
-        href: "/klasifikasi-svm",
-      },
-      {
         icon: "/klasifikasi-naivebayes.png",
         label: "Klasifikasi NaiveBayes",
         href: "/klasifikasi-naive-bayes",
       },
+      {
+        icon: "/klasifikasi-svm.png",
+        label: "Klasifikasi SVM ",
+        href: "/klasifikasi-svm",
+      },
+      
     ],
   },
   {
@@ -68,16 +70,16 @@ const menuItems: MenuGroup[] = [
   {
     title: "Other",
     items: [
-      {
-        icon: "/profile.png",
-        label: "Profile",
-        href: "/profile",
-      },
-      {
-        icon: "/setting.png",
-        label: "Settings",
-        href: "/settings",
-      },
+      // {
+      //   icon: "/profile.png",
+      //   label: "Profile",
+      //   href: "/profile",
+      // },
+      // {
+      //   icon: "/setting.png",
+      //   label: "Settings",
+      //   href: "/settings",
+      // },
       {
         icon: "/logout.png",
         label: "Logout",

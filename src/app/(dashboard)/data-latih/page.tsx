@@ -63,7 +63,7 @@ const Page = () => {
   const [dataTable, setDataTable] = useState<dataProps[] | null>(null);
 
   useEffect(() => {
-    const savedData = localStorage.getItem("dataSentiment");
+    const savedData = localStorage.getItem("dataLatih");
     if (savedData) {
       setDataTable(JSON.parse(savedData)); // Parse data JSON yang disimpan di localStorage
     }
@@ -82,7 +82,7 @@ const Page = () => {
           <TableSearch />
           <div className=" flex flex-row gap-2">
             <FileUpload />
-            <BtnClear />
+            <BtnClear/>
             <div className="flex items-center gap-4 self-end">
               <button className="w-8 h-8 flex items-center justify-center rounded-full bg-lightPurple">
                 <Image src="/sort.png" alt="" width={14} height={14} />

@@ -1,7 +1,9 @@
+
 const BtnClear = () => {
     
     const handleClearData = () => {
-        localStorage.removeItem('dataSentiment');
+        localStorage.removeItem('dataUji');
+        localStorage.removeItem('dataLatih');
         window.location.reload()
     }  
 

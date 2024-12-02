@@ -62,9 +62,15 @@ const Page = () => {
   const [dataTable, setDataTable] = useState<dataProps[] | null>(null);
 
   useEffect(() => {
-    const savedData = localStorage.getItem("dataSentiment");
-    if (savedData) {
-      setDataTable(JSON.parse(savedData)); // Parse data JSON yang disimpan di localStorage
+    const x = localStorage.getItem("dataUji");
+    if(x) {
+      try {
+        const parsedData: dataProps[] = JSON.parse(x);
+        setDataTable(parsedData);
+      } catch (error) {
+        console.error("Error parsing dataUji from localStorage:", error);
+        setDataTable(null);
+      }
     }
   },[]);
 
@@ -88,7 +94,7 @@ const Page = () => {
         {!dataTable ? (
           <TableEmpty />
         ) : (
-        <Table columns={columns} renderRow={renderRow} data={DataLatih} />
+        <Table columns={columns} renderRow={renderRow} data={dataTable} />
         )}
         {/* Pagination */}
         <Pagination />
