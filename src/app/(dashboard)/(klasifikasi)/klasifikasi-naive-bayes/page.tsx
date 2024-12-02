@@ -1,57 +1,79 @@
 "use client";
+import TableEmpty from "@/components/AlertEmpty";
 import Pagination from "@/components/Pagination";
 import Table from "@/components/Table";
+import { ClassifierResult, classifyNaiveBayes, dataProps } from "@/lib/utils";
 import Image from "next/image";
-import { useState } from "react";
-import { getDataFromLocalStorage, trainNaiveBayes } from "@/lib/NaiveBayes";
-
-type dataLatihProps = {
-  Date: number;
-  Username: string;
-  Rating: number;
-  "Review Text": string;
-  cleaning: string;
-  case_folding: string;
-  normalisasi: string;
-  tokenize: string;
-  "stopword removal": string;
-  stemming_data: string;
-  sentimen: string;
-};
+import { useEffect, useState } from "react";
 
 const columns = [
   {
     header: "No",
     accessor: "no",
+    className: "w-16 p-2",
   },
   {
-    header: "Username",
-    accessor: "username",
-    classname: "hidden md:table-cell",
+    header: "Ulasan",
+    accessor: "ulasan",
+    className: "w-2/3 p-2  hidden md:table-cell",
   },
   {
-    header: "Komentar",
-    accessor: "komentar",
-    classname: "hidden md:table-cell",
+    header: "Prediksi",
+    accessor: "prediksi",
+    className: "w-18 p-2 hidden md:table-cell",
   },
   {
-    header: "Sentiment",
-    accessor: "sentiment",
-    classname: "hidden md:table-cell",
+    header: "Hasil",
+    accessor: "hasil",
+    className: "w-18 p-2  hidden md:table-cell",
   },
 ];
 
+
 const Page = () => {
-  const [result, setResult] = useState<string>("");
+  const [naiveBayesResults, setNaiveBayesResults] = useState<ClassifierResult[]>([]);
+  const [akurasiNB, setAkurasiNB] = useState<number>(0);
 
-  const analyzeText = (text: string) => {
-    const data = getDataFromLocalStorage();
-    const naiveBayesModel = trainNaiveBayes(data);
-    const sentiment = naiveBayesModel.classify(text);
-    setResult(sentiment);
-  };
+  useEffect(() => {
+    const x = localStorage.getItem("dataUji");
+    if (x) {
+      try {
+        const parsedData: dataProps[] = JSON.parse(x);
+        // Jalankan analisis data setelah dataTable di-set
+        const analyzeData = () => {
+          const nbResults = parsedData.map((review) => ({
+            ulasan: review["Review Text"],
+            prediksi: classifyNaiveBayes(parsedData, review["Review Text"]),
+            hasil: review.sentimen,
+          }));
 
-  const renderRow = (item: dataLatihProps, index: number) => (
+          setNaiveBayesResults(nbResults);
+
+          // Akurasi
+          const correctPredictions = nbResults.filter(
+            (result) => result.prediksi === result.hasil
+          ).length;
+        
+          const accuracy =
+            nbResults.length > 0
+              ? (correctPredictions / nbResults.length) * 100
+              : 0;
+
+              setAkurasiNB(accuracy)
+        
+          console.log(`Akurasi Naive Bayes: ${accuracy.toFixed(2)}%`);
+
+        };
+
+        analyzeData();
+      } catch (error) {
+        console.error("Error parsing dataUji from localStorage:", error);
+      }
+    }
+  }, []);
+
+
+  const renderRow = (item: ClassifierResult, index: number) => (
     <tr
       key={index}
       className="border-b border-gray-200 even:bg-slate-50 text-sm hover:bg-lightPurple"
@@ -59,9 +81,9 @@ const Page = () => {
       <td className="flex items-center gap-4 p-4">
         <h3 className="font-semibold">{index + 1}</h3>
       </td>
-      <td className="hidden md:table-cell">{item.Username}</td>
-      <td className="hidden md:table-cell">{item["Review Text"]}</td>
-      <td className="hidden md:table-cell">{item.sentimen}</td>
+      <td className="hidden md:table-cell">{item.ulasan}</td>
+      <td className="hidden md:table-cell">{item.prediksi}</td>
+      <td className="hidden md:table-cell">{item.hasil}</td>
     </tr>
   );
   return (
@@ -74,6 +96,7 @@ const Page = () => {
             Klasifikasi Naive Bayes
           </h1>
           {/* <TableSearch /> */}
+          <h2>{`Akurasi Naive Bayes: ${akurasiNB.toFixed(2)}%`}</h2>
 
           <div className="flex items-center gap-4 ">
             <button className="w-8 h-8 flex items-center justify-center rounded-full bg-lightPurple">
@@ -83,26 +106,11 @@ const Page = () => {
         </div>
 
         {/* List */}
-
-        <div>
-          <textarea
-            id="reviewText"
-            placeholder="Masukkan teks ulasan di sini..."
-          />
-          <button
-            onClick={() => {
-              const text = (
-                document.getElementById("reviewText") as HTMLTextAreaElement
-              ).value;
-              analyzeText(text);
-            }}
-          >
-            Analisis Sentimen
-          </button>
-          {result && <p>Hasil Sentimen: {result}</p>}
-        </div>
-
-        {/* <Table columns={columns} renderRow={renderRow} data={DataLatih} /> */}
+        {!naiveBayesResults ? (
+          <TableEmpty />
+        ) : (
+          <Table columns={columns} renderRow={renderRow} data={naiveBayesResults} />
+        )}
         {/* Pagination */}
         <Pagination />
       </div>

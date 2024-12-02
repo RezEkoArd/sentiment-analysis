@@ -19,7 +19,7 @@ export type ClassifierResult = {
 }
 
 // Klasifikasi NaiveBayes
-const classifyNaiveBayes = (data: dataProps[], text: string) => {
+export const classifyNaiveBayes = (data: dataProps[], text: string) => {
     const totalReviews = data.length;
     const positiveReviews = data.filter((d) => d.sentimen === "positif").length;
     const negativeReviews = data.filter((d) => d.sentimen === "negatif").length;
