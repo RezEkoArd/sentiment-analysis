@@ -1,8 +1,17 @@
+"use client";
+
 import Table from "@/components/Table";
-import { NaiveBayesData } from "@/lib/data";
-import { PieChart, Pie, Sector, Cell, ResponsiveContainer } from "recharts";
+
 import ChartPie from "@/components/ChartPie";
 import ChartAkurasi from "@/components/ChartAkurasi";
+import { useEffect, useState } from "react";
+import {
+  calculatedAccuracy,
+  ClassifierResult,
+  ConfusionMatrix,
+} from "@/lib/utils";
+import TableEmpty from "@/components/AlertEmpty";
+import TableMatrix from "@/components/TabpeMatrix";
 
 type Matrix = {
   id: number;
@@ -33,8 +42,61 @@ const columns = [
   },
 ];
 
-
 const Page = () => {
+  const [naiveBayesConfusionMatrix, setNaiveBayesConfusionMatrix] =
+    useState<ConfusionMatrix | null>(null);
+  const [accuracy, setAccuracy] = useState<number>(0)
+
+  useEffect(() => {
+    const x = localStorage.getItem("NaiveBayesResult");
+    if (x) {
+      try {
+        const parsedData: ClassifierResult[] = JSON.parse(x);
+
+        const generateConfusionMatrix = (
+          predictions: string[],
+          groundTruths: string[]
+        ): ConfusionMatrix => {
+          let TP = 0,
+            TN = 0,
+            FP = 0,
+            FN = 0;
+
+          predictions.forEach((prediction, index) => {
+            const actual = groundTruths[index];
+            if (prediction === "positif" && actual === "positif") TP++;
+            else if (prediction === "negatif" && actual === "negatif") TN++;
+            else if (prediction === "positif" && actual === "negatif") FP++;
+            else if (prediction === "negatif" && actual === "positif") FN++;
+          });
+
+          return { TP, TN, FP, FN };
+        };
+
+        //Ambil Prediksi dan ground thruth
+        const predictions = parsedData.map((result) => result.prediksi);
+        const groundTruths = parsedData.map((result) => result.hasil);
+
+        // Hitung Matriks konfusi dan set ke set
+        const hasil = generateConfusionMatrix(predictions, groundTruths);
+
+        // Hitung Accuracy
+        const accuracy = calculatedAccuracy(hasil)
+        setAccuracy(accuracy*100);
+        setNaiveBayesConfusionMatrix(hasil);
+        
+
+      } catch (error) {
+        console.log(
+          "Error parsing NaiveBayesResult from localStorage: ",
+          error
+        );
+      }
+    }
+  }, []);
+
+  console.log(naiveBayesConfusionMatrix);
+
   const renderRow = (item: Matrix, index: any) => (
     <tr
       key={index}
@@ -43,9 +105,9 @@ const Page = () => {
       <td className="flex items-center gap-4 p-4">
         <h3 className="font-semibold">{index + 1}</h3>
       </td>
-      <td className="hidden md:table-cell">{item.klasifikasi}</td>
-      <td className="hidden md:table-cell">{item.aktualPositif}</td>
-      <td className="hidden md:table-cell">{item.aktualNegatif}</td>
+      <td className=" table-cell">{item.klasifikasi}</td>
+      <td className=" table-cell">{item.aktualPositif}</td>
+      <td className=" table-cell">{item.aktualNegatif}</td>
     </tr>
   );
 
@@ -54,8 +116,16 @@ const Page = () => {
       <div className="w-full flex flex-col gap-8">
         {/* Table Mini  */}
         <div className="bg-white p-4 rounded-md flex-1 m-4 mt-0">
-          <h1 className="text-lg font-semibold">Matrix Klarifikasi NaiveBayes</h1>
-          <Table columns={columns} renderRow={renderRow} data={NaiveBayesData} />
+          <h1 className="text-lg font-semibold">
+            Matrix Klarifikasi NaiveBayes
+          </h1>
+          {!naiveBayesConfusionMatrix ? (
+            <TableEmpty />
+          ) : (
+            <TableMatrix confusionMatrix={naiveBayesConfusionMatrix}/>
+          )}
+          <h2>{`Akurasi Naive Bayes : ${accuracy.toFixed(2)}%`}</h2>
+
         </div>
 
         <div className=" p-4 rounded-md flex-1">
@@ -69,11 +139,11 @@ const Page = () => {
           <div className="flex gap-8 flex-col lg:flex-row">
             {/* Chart Visual Sentiment  */}
             <div className="w-full lg:w-1/3 h-[450px]">
-            <ChartPie title = "NaiveBayes"/>
+              <ChartPie title="NaiveBayes" />
             </div>
             {/*Chart Akurasi Sentiment  */}
             <div className="w-full lg:w-1/3 h-[450px]">
-              <ChartAkurasi title = "NaiveBayes" />
+              <ChartAkurasi title="NaiveBayes" />
             </div>
           </div>
         </div>

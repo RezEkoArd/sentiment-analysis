@@ -29,9 +29,10 @@ const columns = [
   },
 ];
 
-
 const Page = () => {
-  const [naiveBayesResults, setNaiveBayesResults] = useState<ClassifierResult[]>([]);
+  const [naiveBayesResults, setNaiveBayesResults] = useState<
+    ClassifierResult[]
+  >([]);
   const [akurasiNB, setAkurasiNB] = useState<number>(0);
 
   useEffect(() => {
@@ -48,30 +49,27 @@ const Page = () => {
           }));
 
           setNaiveBayesResults(nbResults);
+          localStorage.setItem("NaiveBayesResult", JSON.stringify(nbResults));
 
           // Akurasi
           const correctPredictions = nbResults.filter(
             (result) => result.prediksi === result.hasil
           ).length;
-        
+
           const accuracy =
             nbResults.length > 0
               ? (correctPredictions / nbResults.length) * 100
               : 0;
 
-              setAkurasiNB(accuracy)
-        
-          console.log(`Akurasi Naive Bayes: ${accuracy.toFixed(2)}%`);
-
+          setAkurasiNB(accuracy);
         };
-
+      
         analyzeData();
       } catch (error) {
         console.error("Error parsing dataUji from localStorage:", error);
       }
     }
   }, []);
-
 
   const renderRow = (item: ClassifierResult, index: number) => (
     <tr
@@ -98,7 +96,7 @@ const Page = () => {
           {/* <TableSearch /> */}
 
           <div className="flex items-center gap-4 ">
-          <h2>{`Akurasi Naive Bayes: ${akurasiNB.toFixed(2)}%`}</h2>
+            <h2>{`Akurasi Naive Bayes: ${akurasiNB.toFixed(2)}%`}</h2>
             <button className="w-8 h-8 flex items-center justify-center rounded-full bg-lightPurple">
               <Image src="/sort.png" alt="" width={14} height={14} />
             </button>
@@ -109,7 +107,11 @@ const Page = () => {
         {!naiveBayesResults ? (
           <TableEmpty />
         ) : (
-          <Table columns={columns} renderRow={renderRow} data={naiveBayesResults} />
+          <Table
+            columns={columns}
+            renderRow={renderRow}
+            data={naiveBayesResults}
+          />
         )}
         {/* Pagination */}
         <Pagination />

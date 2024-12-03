@@ -56,15 +56,16 @@ const menuItems: MenuGroup[] = [
     title: "Visualisasi",
     items: [
       {
-        icon: "/machine.png",
-        label: "SVM ",
-        href: "/svm",
-      },
-      {
         icon: "/naive-bayes.png",
         label: "Naive Bayes",
         href: "/naive-bayes",
       },
+      {
+        icon: "/machine.png",
+        label: "SVM ",
+        href: "/svm",
+      },
+      
     ],
   },
   {

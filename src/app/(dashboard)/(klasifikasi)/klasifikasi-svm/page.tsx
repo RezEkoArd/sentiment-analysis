@@ -45,6 +45,7 @@ const Page = () => {
           }));
 
           setSvmResults(svmResults);
+          localStorage.setItem("SvmResult", JSON.stringify(svmResults));
 
           // Akurasi
           const correctPredictions = svmResults.filter(
@@ -56,7 +57,6 @@ const Page = () => {
               ? (correctPredictions / svmResults.length) * 100
               : 0;
           setAccuracySvm(accuracy);
-          console.log(`Akurasi Naive Bayes: ${accuracy.toFixed(2)}%`);
         };
         analyzeData();
       } catch (error) {

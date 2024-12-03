@@ -2,7 +2,6 @@
 import {
   RadialBarChart,
   RadialBar,
-  Legend,
   ResponsiveContainer,
 } from "recharts";
 
@@ -34,15 +33,13 @@ const ChartPie = ({title} : ChartPieProps) => {
       {/* TITLE */}
       <div className="flex justify-between items-center">
         <h1 className="font-light text-slate-700 text-md">
-          Visualisasi Sentimen {title}
+          Visualisasi Distribusi Aktual {title}
         </h1>
       </div>
       {/* Chart */}
       <div className="w-full h-[75%]">
         <ResponsiveContainer>
           <RadialBarChart
-            cx="50%"
-            cy="50%"
             innerRadius="10%"
             outerRadius="80%"
             barSize={34}
