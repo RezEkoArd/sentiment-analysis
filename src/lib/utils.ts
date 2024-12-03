@@ -36,7 +36,7 @@ export const classifyNaiveBayes = (data: dataProps[], text: string) => {
 }
 
 // Klasifikasi SVM
-const classifySVM = (text: string) => {
+export const classifySVM = (text: string) => {
     const negWords = ["buruk", "sampah", "tidak"];
     const posWords = ["mantap", "bagus", "baik"];
 

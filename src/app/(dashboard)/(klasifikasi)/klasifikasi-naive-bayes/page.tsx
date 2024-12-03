@@ -35,7 +35,7 @@ const Page = () => {
   const [akurasiNB, setAkurasiNB] = useState<number>(0);
 
   useEffect(() => {
-    const x = localStorage.getItem("dataUji");
+    const x = localStorage.getItem("dataLatih");
     if (x) {
       try {
         const parsedData: dataProps[] = JSON.parse(x);
@@ -96,9 +96,9 @@ const Page = () => {
             Klasifikasi Naive Bayes
           </h1>
           {/* <TableSearch /> */}
-          <h2>{`Akurasi Naive Bayes: ${akurasiNB.toFixed(2)}%`}</h2>
 
           <div className="flex items-center gap-4 ">
+          <h2>{`Akurasi Naive Bayes: ${akurasiNB.toFixed(2)}%`}</h2>
             <button className="w-8 h-8 flex items-center justify-center rounded-full bg-lightPurple">
               <Image src="/sort.png" alt="" width={14} height={14} />
             </button>
