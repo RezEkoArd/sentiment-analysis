@@ -45,7 +45,7 @@ const columns = [
 const Page = () => {
   const [naiveBayesConfusionMatrix, setNaiveBayesConfusionMatrix] =
     useState<ConfusionMatrix | null>(null);
-  const [accuracy, setAccuracy] = useState<number>(0)
+  const [accuracy, setAccuracy] = useState<number>(0);
 
   useEffect(() => {
     const x = localStorage.getItem("NaiveBayesResult");
@@ -81,11 +81,9 @@ const Page = () => {
         const hasil = generateConfusionMatrix(predictions, groundTruths);
 
         // Hitung Accuracy
-        const accuracy = calculatedAccuracy(hasil)
-        setAccuracy(accuracy*100);
+        const accuracy = calculatedAccuracy(hasil);
+        setAccuracy(accuracy * 100);
         setNaiveBayesConfusionMatrix(hasil);
-        
-
       } catch (error) {
         console.log(
           "Error parsing NaiveBayesResult from localStorage: ",
@@ -95,37 +93,24 @@ const Page = () => {
     }
   }, []);
 
+  const TP = naiveBayesConfusionMatrix?.TP;
+  const TN = naiveBayesConfusionMatrix?.TN;
   console.log(naiveBayesConfusionMatrix);
-
-  const renderRow = (item: Matrix, index: any) => (
-    <tr
-      key={index}
-      className="border-b border-gray-200 even:bg-slate-50 text-sm hover:bg-lightPurple"
-    >
-      <td className="flex items-center gap-4 p-4">
-        <h3 className="font-semibold">{index + 1}</h3>
-      </td>
-      <td className=" table-cell">{item.klasifikasi}</td>
-      <td className=" table-cell">{item.aktualPositif}</td>
-      <td className=" table-cell">{item.aktualNegatif}</td>
-    </tr>
-  );
 
   return (
     <div className="p-4 flex gap-4 flex-col md:flex-row">
       <div className="w-full flex flex-col gap-8">
         {/* Table Mini  */}
-        <div className="bg-white p-4 rounded-md flex-1 m-4 mt-0">
+        <div className="bg-white p-4 rounded-md flex-1 m-4 mt-0 flex flex-col gap-4">
           <h1 className="text-lg font-semibold">
             Matrix Klarifikasi NaiveBayes
           </h1>
           {!naiveBayesConfusionMatrix ? (
             <TableEmpty />
           ) : (
-            <TableMatrix confusionMatrix={naiveBayesConfusionMatrix}/>
+            <TableMatrix confusionMatrix={naiveBayesConfusionMatrix} />
           )}
           <h2>{`Akurasi Naive Bayes : ${accuracy.toFixed(2)}%`}</h2>
-
         </div>
 
         <div className=" p-4 rounded-md flex-1">
@@ -139,11 +124,21 @@ const Page = () => {
           <div className="flex gap-8 flex-col lg:flex-row">
             {/* Chart Visual Sentiment  */}
             <div className="w-full lg:w-1/3 h-[450px]">
-              <ChartPie title="NaiveBayes" />
+              <ChartPie
+                title="NaiveBayes"
+                aktualPositif={TP ?? 0}
+                aktualNegatif={TN ?? 0}
+              />
             </div>
             {/*Chart Akurasi Sentiment  */}
             <div className="w-full lg:w-1/3 h-[450px]">
-              <ChartAkurasi title="NaiveBayes" />
+              <ChartAkurasi
+                title="NaiveBayes"
+                TP={46}
+                TN={1088}
+                FP={10}
+                FN={269}
+              />
             </div>
           </div>
         </div>

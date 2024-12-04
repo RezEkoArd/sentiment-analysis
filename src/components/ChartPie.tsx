@@ -5,29 +5,38 @@ import {
   ResponsiveContainer,
 } from "recharts";
 
-const data = [
-  {
-    name: "Total",
-    count: 100,
-    fill: "white",
-  },
-  {
-    name: "Girls",
-    count: 44,
-    fill: "#8884d8",
-  },
-  {
-    name: "Boys",
-    count: 56,
-    fill: "#83a6ed",
-  },
-];
+
 
 
 interface ChartPieProps {
   title: String;
+  aktualPositif: number;
+  aktualNegatif: number;
 }
-const ChartPie = ({title} : ChartPieProps) => {
+
+
+const ChartPie = ({title , aktualPositif , aktualNegatif} : ChartPieProps) => {
+
+  const total = aktualPositif + aktualNegatif;
+
+  const data = [
+    {
+      name: "Total",
+      count: total,
+      fill: "white",
+    },
+    {
+      name: "Aktual Positif",
+      count: aktualPositif,
+      fill: "#8884d8",
+    },
+    {
+      name: "Aktual Negatif",
+      count: aktualNegatif,
+      fill: "#83a6ed",
+    },
+  ];
+
   return (
     <div className="bg-white rounded-xl w-full h-full p-4">
       {/* TITLE */}
@@ -58,16 +67,16 @@ const ChartPie = ({title} : ChartPieProps) => {
         <div className="flex flex-col gap-1">
           <div className="flex items-center justify-center gap-2">
             <div className="w-5 h-5 bg-[#8884d8] rounded-full" />
-            <h2 className="text-xs text-gray-500"> (45%)</h2>
+            <h2 className="text-xs text-gray-500">{aktualPositif}</h2>
           </div>
-          <h1 className="font-bold">Positif</h1>
+          <h1 className="font-bold">Aktual Positif</h1>
         </div>
         <div className="flex flex-col gap-1">
           <div className="flex items-center justify-center gap-2">
             <div className="w-5 h-5 bg-[#83a6ed] rounded-full" />
-            <h2 className="text-xs text-gray-500"> (55%)</h2>
+            <h2 className="text-xs text-gray-500"> {aktualNegatif}</h2>
           </div>
-          <h1 className="font-bold">Negatif</h1>
+          <h1 className="font-bold">Aktual Negatif</h1>
         </div>
       </div>
     </div>
