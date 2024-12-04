@@ -4,6 +4,8 @@ const BtnClear = () => {
     const handleClearData = () => {
         localStorage.removeItem('dataUji');
         localStorage.removeItem('dataLatih');
+        localStorage.removeItem('NaiveBayesResult');
+        localStorage.removeItem('SvmResult');
         window.location.reload()
     }  
 

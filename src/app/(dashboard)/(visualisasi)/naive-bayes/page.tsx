@@ -1,7 +1,4 @@
 "use client";
-
-import Table from "@/components/Table";
-
 import ChartPie from "@/components/ChartPie";
 import ChartAkurasi from "@/components/ChartAkurasi";
 import { useEffect, useState } from "react";
@@ -12,35 +9,6 @@ import {
 } from "@/lib/utils";
 import TableEmpty from "@/components/AlertEmpty";
 import TableMatrix from "@/components/TabpeMatrix";
-
-type Matrix = {
-  id: number;
-  klasifikasi: string;
-  aktualPositif: number;
-  aktualNegatif: number;
-};
-
-const columns = [
-  {
-    header: "No",
-    accessor: "no",
-  },
-  {
-    header: "Klasifikasi",
-    accessor: "klasifikasi",
-    className: "hidden md:table-cell",
-  },
-  {
-    header: "Aktual Positif",
-    accessor: "aktualPosifit",
-    className: "hidden md:table-cell",
-  },
-  {
-    header: "Aktual Negatif",
-    accessor: "aktualNegatif",
-    className: "hidden md:table-cell",
-  },
-];
 
 const Page = () => {
   const [naiveBayesConfusionMatrix, setNaiveBayesConfusionMatrix] =
@@ -95,7 +63,6 @@ const Page = () => {
 
   const TP = naiveBayesConfusionMatrix?.TP;
   const TN = naiveBayesConfusionMatrix?.TN;
-  console.log(naiveBayesConfusionMatrix);
 
   return (
     <div className="p-4 flex gap-4 flex-col md:flex-row">
@@ -134,10 +101,10 @@ const Page = () => {
             <div className="w-full lg:w-1/3 h-[450px]">
               <ChartAkurasi
                 title="NaiveBayes"
-                TP={46}
-                TN={1088}
-                FP={10}
-                FN={269}
+                TP={naiveBayesConfusionMatrix?.TP ?? 0}
+                TN={naiveBayesConfusionMatrix?.TP ?? 0}
+                FP={naiveBayesConfusionMatrix?.TP ?? 0}
+                FN={naiveBayesConfusionMatrix?.TP ?? 0}
               />
             </div>
           </div>

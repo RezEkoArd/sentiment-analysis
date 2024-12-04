@@ -1,53 +1,65 @@
-import Table from "@/components/Table";
-import { SVMdata } from "@/lib/data";
-import { PieChart, Pie, Sector, Cell, ResponsiveContainer } from "recharts";
+"use client";
 import ChartPie from "@/components/ChartPie";
 import ChartAkurasi from "@/components/ChartAkurasi";
-
-
-type Matrix = {
-  id: number;
-  klasifikasi: string;
-  aktualPositif: number;
-  aktualNegatif: number;
-};
-
-const columns = [
-  {
-    header: "No",
-    accessor: "no",
-  },
-  {
-    header: "Klasifikasi",
-    accessor: "klasifikasi",
-    className: "hidden md:table-cell",
-  },
-  {
-    header: "Aktual Positif",
-    accessor: "aktualPosifit",
-    className: "hidden md:table-cell",
-  },
-  {
-    header: "Aktual Negatif",
-    accessor: "aktualNegatif",
-    className: "hidden md:table-cell",
-  },
-];
+import { useEffect, useState } from "react";
+import {
+  calculatedAccuracy,
+  ClassifierResult,
+  ConfusionMatrix,
+} from "@/lib/utils";
+import TableEmpty from "@/components/AlertEmpty";
+import TableMatrix from "@/components/TabpeMatrix";
 
 const Page = () => {
-  const renderRow = (item: Matrix, index: any) => (
-    <tr
-      key={index}
-      className="border-b border-gray-200 even:bg-slate-50 text-sm hover:bg-lightPurple"
-    >
-      <td className="flex items-center gap-4 p-4">
-        <h3 className="font-semibold">{index + 1}</h3>
-      </td>
-      <td className="hidden md:table-cell">{item.klasifikasi}</td>
-      <td className="hidden md:table-cell">{item.aktualPositif}</td>
-      <td className="hidden md:table-cell">{item.aktualNegatif}</td>
-    </tr>
-  );
+  const [svmConfusionMatrix, setSVMConfusionMatrix] =
+    useState<ConfusionMatrix | null>(null);
+  const [accuracy, setAccuracy] = useState<number>(0);
+
+  useEffect(() => {
+    const x = localStorage.getItem("SvmResult");
+    if (x) {
+      try {
+        const parsedData: ClassifierResult[] = JSON.parse(x);
+
+        const generateConfusionMatrix = (
+          predictions: string[],
+          groundTruths: string[]
+        ): ConfusionMatrix => {
+          let TP = 0,
+            TN = 0,
+            FP = 0,
+            FN = 0;
+
+          predictions.forEach((prediction, index) => {
+            const actual = groundTruths[index];
+            if (prediction === "positif" && actual === "positif") TP++;
+            else if (prediction === "negatif" && actual === "negatif") TN++;
+            else if (prediction === "positif" && actual === "negatif") FP++;
+            else if (prediction === "negatif" && actual === "positif") FN++;
+          });
+
+          return { TP, TN, FP, FN };
+        };
+
+        //Ambil Prediksi dan groundThruth
+        const predictions = parsedData.map((result) => result.prediksi);
+        const groundTruths = parsedData.map((result) => result.hasil);
+
+        // Hitung Matriks konfusi dan set ke set
+        const hasil = generateConfusionMatrix(predictions, groundTruths);
+
+        // Hitung Accuracy
+        const accuracy = calculatedAccuracy(hasil);
+        setAccuracy(accuracy * 100);
+        setSVMConfusionMatrix(hasil);
+      } catch (error) {
+        console.log("Error parsing SVMResult from localStorage: ", error);
+      }
+    }
+  }, []);
+
+  const TP = svmConfusionMatrix?.TP;
+  const TN = svmConfusionMatrix?.TN;
 
   return (
     <div className="p-4 flex gap-4 flex-col md:flex-row">
@@ -55,7 +67,11 @@ const Page = () => {
         {/* Table Mini  */}
         <div className="bg-white p-4 rounded-md flex-1 m-4 mt-0">
           <h1 className="text-lg font-semibold">Matrix Klarifikasi SVM</h1>
-          <Table columns={columns} renderRow={renderRow} data={SVMdata} />
+          {!svmConfusionMatrix ? (
+            <TableEmpty />
+          ) : (
+            <TableMatrix confusionMatrix={svmConfusionMatrix} />
+          )}
         </div>
 
         <div className=" p-4 rounded-md flex-1">
@@ -69,11 +85,21 @@ const Page = () => {
           <div className="flex gap-8 flex-col lg:flex-row">
             {/* Chart Visual Sentiment  */}
             <div className="w-full lg:w-1/3 h-[450px]">
-            <ChartPie title={"SVM"}/>
+              <ChartPie
+                title={"SVM"}
+                aktualPositif={svmConfusionMatrix?.TP ?? 0}
+                aktualNegatif={svmConfusionMatrix?.TN ?? 0}
+              />
             </div>
             {/*Chart Akurasi Sentiment  */}
             <div className="w-full lg:w-1/3 h-[450px]">
-              <ChartAkurasi title={"SVM"} />
+              <ChartAkurasi
+                title={"SVM"}
+                TP={svmConfusionMatrix?.TP ?? 0}
+                TN={svmConfusionMatrix?.TN ?? 0}
+                FP={svmConfusionMatrix?.FP ?? 0}
+                FN={svmConfusionMatrix?.FN ?? 0}
+              />
             </div>
           </div>
         </div>
