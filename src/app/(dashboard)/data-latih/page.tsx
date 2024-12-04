@@ -98,7 +98,7 @@ const Page = () => {
           <Table columns={columns} renderRow={renderRow} data={dataTable} />
         )}
         {/* Pagination */}
-        <Pagination />
+        {/* <Pagination /> */}
       </div>
     </div>
   );

@@ -114,7 +114,7 @@ const Page = () => {
           />
         )}
         {/* Pagination */}
-        <Pagination />
+        {/* <Pagination /> */}
       </div>
     </div>
   );
