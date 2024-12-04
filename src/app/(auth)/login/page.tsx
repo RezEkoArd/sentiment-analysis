@@ -34,6 +34,12 @@ const LoginPage = () => {
     }
   }
 
+  const handleKeyDown = (e:any) => {
+    if (e.key === 'Enter') {
+      handleLogin();
+    }
+  }
+
 
   return (
     <div className="w-full h-screen flex items-center justify-center bg-custom-gradient">
@@ -73,6 +79,7 @@ const LoginPage = () => {
               value={password}
               className="my-2 block w-full p-2 border border-gray-300 rounded-md "
               onChange={(e) => setPassword(e.target.value)}
+              onKeyDown={handleKeyDown}
               required
             />
           </div>

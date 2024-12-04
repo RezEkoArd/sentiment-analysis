@@ -61,9 +61,6 @@ const Page = () => {
     }
   }, []);
 
-  const TP = naiveBayesConfusionMatrix?.TP;
-  const TN = naiveBayesConfusionMatrix?.TN;
-
   return (
     <div className="p-4 flex gap-4 flex-col md:flex-row">
       <div className="w-full flex flex-col gap-8">
@@ -93,8 +90,8 @@ const Page = () => {
             <div className="w-full lg:w-1/3 h-[450px]">
               <ChartPie
                 title="NaiveBayes"
-                aktualPositif={TP ?? 0}
-                aktualNegatif={TN ?? 0}
+                aktualPositif={naiveBayesConfusionMatrix?.TP ?? 0}
+                aktualNegatif={naiveBayesConfusionMatrix?.TN ?? 0}
               />
             </div>
             {/*Chart Akurasi Sentiment  */}
@@ -102,9 +99,9 @@ const Page = () => {
               <ChartAkurasi
                 title="NaiveBayes"
                 TP={naiveBayesConfusionMatrix?.TP ?? 0}
-                TN={naiveBayesConfusionMatrix?.TP ?? 0}
-                FP={naiveBayesConfusionMatrix?.TP ?? 0}
-                FN={naiveBayesConfusionMatrix?.TP ?? 0}
+                TN={naiveBayesConfusionMatrix?.TN ?? 0}
+                FP={naiveBayesConfusionMatrix?.FP ?? 0}
+                FN={naiveBayesConfusionMatrix?.FN ?? 0}
               />
             </div>
           </div>
