@@ -33,30 +33,39 @@ const menuItems: MenuGroup[] = [
         label: "Data Uji",
         href: "/data-uji",
       },
-      
-    ],
-  },
-  {
-    title: "Klasifikasi",
-    items: [
       {
         icon: "/klasifikasi-naivebayes.png",
         label: "Klasifikasi NaiveBayes",
         href: "/klasifikasi-naive-bayes",
       },
       {
-        icon: "/klasifikasi-svm.png",
-        label: "Klasifikasi SVM ",
-        href: "/klasifikasi-svm",
-      },
-      {
         icon: "/prediction.png",
-        label: "Initial Process ",
+        label: "Initial Process Random Forest",
         href: "/initial-process",
       },
-      
     ],
   },
+  // {
+  //   title: "Klasifikasi",
+  //   items: [
+  //     {
+  //       icon: "/klasifikasi-naivebayes.png",
+  //       label: "Klasifikasi NaiveBayes",
+  //       href: "/klasifikasi-naive-bayes",
+  //     },
+  //     {
+  //       icon: "/klasifikasi-svm.png",
+  //       label: "Klasifikasi SVM ",
+  //       href: "/klasifikasi-svm",
+  //     },
+  //     {
+  //       icon: "/prediction.png",
+  //       label: "Initial Process ",
+  //       href: "/initial-process",
+  //     },
+
+  //   ],
+  // },
   {
     title: "Visualisasi",
     items: [
@@ -70,7 +79,6 @@ const menuItems: MenuGroup[] = [
         label: "SVM ",
         href: "/svm",
       },
-      
     ],
   },
   {
@@ -102,7 +110,7 @@ const Menu = () => {
   const handleLogout = () => {
     localStorage.clear();
     window.location.reload();
-  }
+  };
 
   return (
     <div className="mt-4 ml-4 text-sm">
@@ -118,7 +126,7 @@ const Menu = () => {
 
             if (item.setLogout) {
               return (
-                 <button
+                <button
                   key={item.label}
                   onClick={handleLogout}
                   className="flex items-center lg:justify-start gap-4 text-gray-500 py-2 md:px-2 rounded-md hover:bg-slate-200"

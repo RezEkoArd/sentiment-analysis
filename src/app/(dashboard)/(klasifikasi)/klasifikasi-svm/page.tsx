@@ -32,7 +32,7 @@ const Page = () => {
   const [accuracySvm, setAccuracySvm] = useState<number>(0);
 
   useEffect(() => {
-    const x = localStorage.getItem("dataTesting");
+    const x = localStorage.getItem("dataTraining");
     if (x) {
       try {
         const analyzeData = () => {
