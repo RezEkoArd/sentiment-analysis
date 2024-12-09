@@ -90,7 +90,7 @@ const Page = () => {
           </h1>
 
           <div className="flex items-center gap-4">
-          <h2>{`Akurasi Naive Bayes : ${accuracySvm.toFixed(2)}%`}</h2>
+          <h2>{`Akurasi SVM : ${accuracySvm.toFixed(2)}%`}</h2>
             <button className="w-8 h-8 flex items-center justify-center rounded-full bg-lightPurple">
               <Image src="/sort.png" alt="" width={14} height={14} />
             </button>

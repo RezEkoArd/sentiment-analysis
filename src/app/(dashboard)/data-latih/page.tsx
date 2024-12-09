@@ -63,7 +63,7 @@ const Page = () => {
   const [dataTable, setDataTable] = useState<dataProps[] | null>(null);
 
   useEffect(() => {
-    const savedData = localStorage.getItem("dataLatih");
+    const savedData = localStorage.getItem("dataTraining");
     if (savedData) {
       setDataTable(JSON.parse(savedData)); // Parse data JSON yang disimpan di localStorage
     }
@@ -77,7 +77,7 @@ const Page = () => {
       <div className="bg-white p-4 rounded-d flex-1 m-4 mt-0">
         {/* top */}
         <div className="flex flex-row gap-4 items-center justify-between">
-          <h1 className="hidden md:block text-lg font-semibold">Data Latih</h1>
+          <h1 className="hidden md:block text-lg font-semibold">Data Training / datalatih</h1>
 
           <TableSearch />
           <div className=" flex flex-row gap-2">

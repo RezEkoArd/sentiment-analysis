@@ -1,9 +1,7 @@
 "use client";
-import Pagination from "@/components/Pagination";
 import Table from "@/components/Table";
 import TableEmpty from "@/components/AlertEmpty";
 import TableSearch from "@/components/TableSearch";
-import { DataLatih } from "@/lib/data";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 
@@ -62,7 +60,7 @@ const Page = () => {
   const [dataTable, setDataTable] = useState<dataProps[] | null>(null);
 
   useEffect(() => {
-    const x = localStorage.getItem("dataUji");
+    const x = localStorage.getItem("dataTraining");
     if(x) {
       try {
         const parsedData: dataProps[] = JSON.parse(x);
@@ -81,7 +79,7 @@ const Page = () => {
       <div className="bg-white p-4 rounded-md flex-1 m-4 mt-0">
         {/* top */}
         <div className="flex flex-row gap-4 items-center justify-between">
-          <h1 className="hidden md:block text-lg font-semibold">Data Uji</h1>
+          <h1 className="hidden md:block text-lg font-semibold">Data Testing / data Uji</h1>
           <TableSearch />
           <div className="flex items-center gap-4 self-end">
             <button className="w-8 h-8 flex items-center justify-center rounded-full bg-lightPurple">

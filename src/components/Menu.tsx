@@ -49,6 +49,11 @@ const menuItems: MenuGroup[] = [
         label: "Klasifikasi SVM ",
         href: "/klasifikasi-svm",
       },
+      {
+        icon: "/prediction.png",
+        label: "Initial Process ",
+        href: "/initial-process",
+      },
       
     ],
   },
@@ -69,18 +74,19 @@ const menuItems: MenuGroup[] = [
     ],
   },
   {
+    title: "Random Forest",
+    items: [
+      {
+        icon: "/logout.png",
+        label: "Logout",
+        href: "/logout",
+        setLogout: true,
+      },
+    ],
+  },
+  {
     title: "Other",
     items: [
-      // {
-      //   icon: "/profile.png",
-      //   label: "Profile",
-      //   href: "/profile",
-      // },
-      // {
-      //   icon: "/setting.png",
-      //   label: "Settings",
-      //   href: "/settings",
-      // },
       {
         icon: "/logout.png",
         label: "Logout",

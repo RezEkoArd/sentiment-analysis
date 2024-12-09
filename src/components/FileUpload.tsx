@@ -30,9 +30,9 @@ const FileUpload = () => {
     reader.onload = () => {
       try {
         const result = JSON.parse(reader.result as string);;
-        const {trainData, testData} = splitData(result, 0.8);
-        localStorage.setItem("dataUji", JSON.stringify(testData));
-        localStorage.setItem("dataLatih", JSON.stringify(trainData));
+        const {trainData, testData} = splitData(result, 0.7);
+        localStorage.setItem("dataTraining", JSON.stringify(trainData));
+        localStorage.setItem("dataTesting", JSON.stringify(testData));
         window.location.reload()
         setError(null);
       } catch (error) {
