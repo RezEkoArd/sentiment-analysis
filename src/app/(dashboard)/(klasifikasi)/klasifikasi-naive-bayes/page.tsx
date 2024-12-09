@@ -36,7 +36,7 @@ const Page = () => {
   const [akurasiNB, setAkurasiNB] = useState<number>(0);
 
   useEffect(() => {
-    const x = localStorage.getItem("dataLatih");
+    const x = localStorage.getItem("dataTesting");
     if (x) {
       try {
         const parsedData: dataProps[] = JSON.parse(x);
