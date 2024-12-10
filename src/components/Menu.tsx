@@ -23,26 +23,6 @@ const menuItems: MenuGroup[] = [
         label: "Home",
         href: "/admin",
       },
-      {
-        icon: "/data-latih.png",
-        label: "Data Latih",
-        href: "/data-latih",
-      },
-      {
-        icon: "/data-uji.png",
-        label: "Data Uji",
-        href: "/data-uji",
-      },
-      {
-        icon: "/klasifikasi-naivebayes.png",
-        label: "Klasifikasi NaiveBayes",
-        href: "/klasifikasi-naive-bayes",
-      },
-      {
-        icon: "/prediction.png",
-        label: "Initial Process Random Forest",
-        href: "/initial-process",
-      },
     ],
   },
   // {
@@ -67,17 +47,27 @@ const menuItems: MenuGroup[] = [
   //   ],
   // },
   {
-    title: "Visualisasi",
+    title: "NaiveBayes",
     items: [
+      {
+        icon: "/data-latih.png",
+        label: "Data Latih",
+        href: "/data-latih",
+      },
+      {
+        icon: "/data-uji.png",
+        label: "Data Uji",
+        href: "/data-uji",
+      },
+      {
+        icon: "/klasifikasi-naivebayes.png",
+        label: "Klasifikasi NaiveBayes",
+        href: "/klasifikasi-naive-bayes",
+      },
       {
         icon: "/naive-bayes.png",
         label: "Naive Bayes",
         href: "/naive-bayes",
-      },
-      {
-        icon: "/machine.png",
-        label: "SVM ",
-        href: "/svm",
       },
     ],
   },
@@ -85,10 +75,19 @@ const menuItems: MenuGroup[] = [
     title: "Random Forest",
     items: [
       {
-        icon: "/logout.png",
-        label: "Logout",
-        href: "/logout",
-        setLogout: true,
+        icon: "/database.png",
+        label: "DataSet",
+        href: "/data-set",
+      },
+      {
+        icon: "/prediction.png",
+        label: "Initial Process Random Forest",
+        href: "/initial-process",
+      },
+      {
+        icon: "/predictive.png",
+        label: "Prediction Page",
+        href: "/predict",
       },
     ],
   },

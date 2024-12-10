@@ -31,9 +31,11 @@ const FileUpload = () => {
       try {
         const result = JSON.parse(reader.result as string);;
         const {trainData, testData} = splitData(result, 0.7);
+        localStorage.setItem("dataMining",JSON.stringify(result));
         localStorage.setItem("dataTraining", JSON.stringify(trainData));
         localStorage.setItem("dataTesting", JSON.stringify(testData));
-        window.location.reload()
+        window.location.reload();
+        
         setError(null);
       } catch (error) {
         setError("Invaid JSON format!");

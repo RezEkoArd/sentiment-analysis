@@ -3,8 +3,9 @@ const BtnClear = () => {
     
     const handleClearData = () => {
         // Data Set
-        localStorage.removeItem('dataUji');
-        localStorage.removeItem('dataLatih');
+        localStorage.removeItem('dataMining');
+        localStorage.removeItem('dataTraining');
+        localStorage.removeItem('dataTesting');
         // Data klasifikasi
         localStorage.removeItem('NaiveBayesResult');
         localStorage.removeItem('SvmResult');

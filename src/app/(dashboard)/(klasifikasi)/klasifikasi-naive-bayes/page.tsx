@@ -37,9 +37,8 @@ const Page = () => {
 
   useEffect(() => {
     const x = localStorage.getItem("dataTraining");
-    console.log(x)
     if (x) {
-      try {
+      try { 
         const parsedData: dataProps[] = JSON.parse(x);
         // Jalankan analisis data setelah dataTable di-set
         const analyzeData = () => {
