@@ -57,8 +57,7 @@ const Page = () => {
             uniqueWords: item.features.uniqueWords,
             label: item.label,
           }));
-
-          localStorage.setItem("dataInitialProcess", JSON.stringify(tableData));
+          localStorage.setItem("dataProcessData", JSON.stringify(initialProcess));
           setDataInitial(tableData);
 
           const { train, test } = splitData(tableData);

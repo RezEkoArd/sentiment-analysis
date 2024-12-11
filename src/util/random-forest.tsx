@@ -93,3 +93,34 @@ export const predict = (classifier: RandomForestClassifier, input: number[]): nu
 export const getTrees = (classifier: RandomForestClassifier) => {
     return classifier.estimators?.map((tree) => tree.toJSON())
 }
+
+
+//Evaluate Model Performance
+export const evaluateModel = (classifier: RandomForestClassifier, testData: any[]) => {
+    const yTrue = testData.map((data) => data.label);
+    const yPred = testData.map((data) => {
+        const input = [data.features.rating, data.features.reviewLength, data.features.uniqueWords];
+        return predict(classifier, input);
+    });
+
+    // Confusion Matrix [TP,FP,TN,FN]
+    let TP = 0, FP = 0, FN = 0, TN = 0;
+    yTrue.forEach((trueLabel, index) => {
+        const predLabel = yPred[index];
+        if (trueLabel === 1 && predLabel === 1) TP++;
+        else if (trueLabel === 0 && predLabel === 1) FP++;
+        else if (trueLabel === 1 && predLabel === 0) FN++;
+        else if (trueLabel === 0 && predLabel === 0) TN++;
+    });
+
+    const accuracy = (TP + TN) / (TP + FP + FN + TN);
+    const precision = TP / (TP + FP) || 0;
+    const recall = TP / (TP + FN) || 0;
+
+    return {
+        confusionMatrix: { TP, FP, FN, TN },
+        accuracy,
+        precision,
+        recall,
+    };
+}

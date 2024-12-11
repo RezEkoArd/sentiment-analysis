@@ -66,7 +66,7 @@ const menuItems: MenuGroup[] = [
       },
       {
         icon: "/naive-bayes.png",
-        label: "Naive Bayes",
+        label: "Matrix Klasifikasi",
         href: "/naive-bayes",
       },
     ],
@@ -88,6 +88,11 @@ const menuItems: MenuGroup[] = [
         icon: "/predictive.png",
         label: "Prediction Page",
         href: "/predict",
+      },
+      {
+        icon: "/growth.png",
+        label: "Performance",
+        href: "/performance",
       },
     ],
   },
