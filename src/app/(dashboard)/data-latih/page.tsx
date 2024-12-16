@@ -29,11 +29,6 @@ const columns = [
     className: "w-16 p-2"
   },
   {
-    header: "Username",
-    accessor: "username",
-    className: "w-36 p-2 hidden sm:table-cell",
-  },
-  {
     header: "Komentar",
     accessor: "komentar",
     className: "w-18 p-2 hidden sm:table-cell",
@@ -54,7 +49,6 @@ const Page = () => {
       <td className="flex items-center gap-4 p-2 ">
         <h3 className="font-semibold">{index + 1}</h3>
       </td>
-      <td className="p-2 hidden sm:table-cell ">{item.Username}</td>
       <td className="p-2 hidden sm:table-cell">{item["Review Text"]}</td>
       <td className="p-2 hidden sm:table-cell">{item.sentimen}</td>
     </tr>

@@ -26,11 +26,6 @@ const columns = [
     className: "w-16 p-2",
   },
   {
-    header: "Username",
-    accessor: "username",
-    className: "w-36 p-2 hidden sm:table-cell",
-  },
-  {
     header: "Komentar",
     accessor: "komentar",
     className: "w-18 p-2 hidden sm:table-cell",
@@ -51,7 +46,6 @@ const Page = () => {
       <td className="flex items-center gap-4 p-4">
         <h3 className="font-semibold">{index + 1}</h3>
       </td>
-      <td className="hidden md:table-cell">{item.Username}</td>
       <td className="hidden md:table-cell">{item["Review Text"]}</td>
       <td className="hidden md:table-cell">{item.sentimen}</td>
     </tr>
@@ -60,7 +54,7 @@ const Page = () => {
   const [dataTable, setDataTable] = useState<dataProps[] | null>(null);
 
   useEffect(() => {
-    const x = localStorage.getItem("dataTraining");
+    const x = localStorage.getItem("dataTesting");
     if(x) {
       try {
         const parsedData: dataProps[] = JSON.parse(x);
