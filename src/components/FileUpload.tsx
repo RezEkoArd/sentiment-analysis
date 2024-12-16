@@ -29,11 +29,20 @@ const FileUpload = () => {
     const reader = new FileReader();
     reader.onload = () => {
       try {
+        function calculateSplitRatio(number : number) {
+          return 1 - (number / 100);
+      }
+      
+        const inputNumber = 20; // Ganti dengan angka sesuai kebutuhan
+        const splitRatio = calculateSplitRatio(inputNumber);
+
         const result = JSON.parse(reader.result as string);;
-        const {trainData, testData} = splitData(result, 0.7);
+        const {trainData, testData} = splitData(result, splitRatio);
         localStorage.setItem("dataMining",JSON.stringify(result));
         localStorage.setItem("dataTraining", JSON.stringify(trainData));
         localStorage.setItem("dataTesting", JSON.stringify(testData));
+        localStorage.setItem("dataRasioTraining", JSON.stringify(inputNumber));
+        localStorage.setItem("dataRasioTesting", JSON.stringify(100-inputNumber));
         window.location.reload();
         
         setError(null);
